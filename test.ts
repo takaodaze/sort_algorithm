@@ -1,6 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.203.0/assert/mod.ts";
 import { bubbleSort } from "./sort/bubble.ts";
 import { selectionSort } from "./sort/selection.ts";
+import { insertionSort } from "./sort/insertion.ts";
 
 const rawTestDataJson = Deno.readTextFileSync("./test_data.json");
 
@@ -19,5 +20,11 @@ Deno.test(function bubble() {
 Deno.test(function selection() {
   for (let i = 0; i < testdata.length; i++) {
     assertEquals(selectionSort(testdata[i]), sortedTestdata[i]);
+  }
+});
+
+Deno.test(function insertion() {
+  for (let i = 0; i < testdata.length; i++) {
+    assertEquals(insertionSort(testdata[i]), sortedTestdata[i]);
   }
 });
