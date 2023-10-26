@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.203.0/assert/mod.ts";
-import { bubbleSort } from "./bubble.ts";
+import { bubbleSort } from "./sort/bubble.ts";
 
 const rawTestDataJson = Deno.readTextFileSync("./test_data.json");
 
