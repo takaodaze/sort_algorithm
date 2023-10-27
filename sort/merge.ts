@@ -8,13 +8,9 @@ function merge(l: number[], r: number[]): number[] {
     }
   }
 
-  while (l.length > 0) {
-    merged.push(l.shift() ?? -1);
-  }
+  while (l.length > 0) merged.push(l.shift() ?? -1);
 
-  while (r.length > 0) {
-    merged.push(r.shift() ?? -1);
-  }
+  while (r.length > 0) merged.push(r.shift() ?? -1);
 
   return merged;
 }
@@ -29,8 +25,10 @@ export const mergeSort = (arr: number[]): number[] => {
       const r = i === separated.length - 1 ? [] : separated[i + 1]; // 分割した配列のサイズが奇数なら i が右端まで来るので、その際は空の配列をダミーで与える
       merged.push(merge(l, r));
     }
-    separated = merged;
+
     if (merged.length === 1) break;
+
+    separated = merged;
     merged = [];
   }
 
