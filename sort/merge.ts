@@ -1,71 +1,43 @@
-// 昇順に並べる 2^k サイズの配列しか処理できない...
+function merge(l: number[], r: number[]): number[] {
+  const merged: number[] = [];
+  while (l.length > 0 && r.length > 0) {
+    if (l[0] <= r[0]) {
+      merged.push(l.shift() ?? -1); // ?? -1 はコンパイルエラーの回避策
+    } else {
+      merged.push(r.shift() ?? -1);
+    }
+  }
+
+  while (l.length > 0) {
+    merged.push(l.shift() ?? -1);
+  }
+
+  while (r.length > 0) {
+    merged.push(r.shift() ?? -1);
+  }
+
+  return merged;
+}
+
 export const mergeSort = (arr: number[]): number[] => {
-  function merge(s1: number, e1: number, s2: number, e2: number) {
-    const memoS1 = s1;
-    const merged = [];
+  let separated = arr.map((e) => [e]);
+  let merged = [];
 
-    while (s1 <= e1 && s2 <= e2) {
-      if (arr[s1] <= arr[s2]) {
-        merged.push(arr[s1]);
-        s1++;
-      } else {
-        merged.push(arr[s2]);
-        s2++;
-      }
+  while (true) {
+    for (let i = 0; i < separated.length; i += 2) {
+      const l = separated[i];
+      const r = i === separated.length - 1 ? [] : separated[i + 1]; // current が奇数なら i が右はじまで来るので、その際は空の配列をダミーで与える
+      merged.push(merge(l, r));
     }
-
-    while (s1 <= e1) {
-      merged.push(arr[s1]);
-      s1++;
-    }
-
-    while (s2 <= e2) {
-      merged.push(arr[s2]);
-      s2++;
-    }
-
-    for (let i = 0; i < merged.length; i++) arr[memoS1 + i] = merged[i];
+    separated = merged;
+    if (merged.length === 1) break;
+    merged = [];
   }
 
-  for (let i = 0;; i++) {
-    const span = 2 ** i;
-    if (span * 2 > arr.length) break;
-
-    let s1, s2, e1, e2 = 0;
-    while (true) {
-      s1 = e2;
-      e1 = s1 + span - 1;
-      s2 = e1 + 1;
-      e2 = s2 + span - 1;
-
-      if (e2 >= arr.length) break;
-
-      merge(s1, e1, s2, e2);
-      e2++;
-    }
-  }
-
-  return arr;
+  return merged[0];
 };
 
 if (import.meta.main) {
-  const test = [
-    81,
-    33,
-    85,
-    160,
-    197,
-    148,
-    67,
-    17,
-    154,
-    197,
-    1,
-    3,
-    42,
-    15,
-    100,
-    23,
-  ];
+  const test = [81, 33, 85, 160, 197, 148, 3, 42];
   console.log(mergeSort(test));
 }
