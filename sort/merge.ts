@@ -35,7 +35,19 @@ export const mergeSort = (arr: number[]): number[] => {
   return merged[0];
 };
 
+export const recurciveMergeSort = (arr: number[]): number[] => {
+  console.log(arr);
+  if (arr.length <= 1) return arr;
+
+  const centerIndex = Math.floor(arr.length / 2);
+  const left = recurciveMergeSort(arr.slice(0, centerIndex));
+  const right = recurciveMergeSort(arr.slice(centerIndex, arr.length));
+
+  return merge(left, right);
+};
+
 if (import.meta.main) {
   const test = [81, 33, 85, 160, 197, 148, 3, 42];
   console.log(mergeSort(test));
+  console.log(recurciveMergeSort(test));
 }
