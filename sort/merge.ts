@@ -26,7 +26,7 @@ export const mergeSort = (arr: number[]): number[] => {
   while (true) {
     for (let i = 0; i < separated.length; i += 2) {
       const l = separated[i];
-      const r = i === separated.length - 1 ? [] : separated[i + 1]; // current が奇数なら i が右はじまで来るので、その際は空の配列をダミーで与える
+      const r = i === separated.length - 1 ? [] : separated[i + 1]; // 分割した配列のサイズが奇数なら i が右端まで来るので、その際は空の配列をダミーで与える
       merged.push(merge(l, r));
     }
     separated = merged;
