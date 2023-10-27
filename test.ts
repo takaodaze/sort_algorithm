@@ -3,6 +3,7 @@ import { bubbleSort } from "./sort/bubble.ts";
 import { selectionSort } from "./sort/selection.ts";
 import { insertionSort } from "./sort/insertion.ts";
 import { mergeSort, recurciveMergeSort } from "./sort/merge.ts";
+import { quickSort } from "./sort/quick.ts";
 
 const rawTestDataJson = Deno.readTextFileSync("./test_data.json");
 
@@ -39,5 +40,11 @@ Deno.test(function merge() {
 Deno.test(function recurciveMerge() {
   for (let i = 0; i < testdata.length; i++) {
     assertEquals(recurciveMergeSort(testdata[i]), sortedTestdata[i]);
+  }
+});
+
+Deno.test(function quick() {
+  for (let i = 0; i < testdata.length; i++) {
+    assertEquals(quickSort(testdata[i]), sortedTestdata[i]);
   }
 });
